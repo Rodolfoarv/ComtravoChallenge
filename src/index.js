@@ -14,6 +14,8 @@ async function initializeServer () {
   }
 }
 
+initializeServer();
+
 exports.stopServer = async () => {
   await server.close()
 }
