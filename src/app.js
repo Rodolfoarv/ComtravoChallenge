@@ -1,13 +1,10 @@
+const {configureRequestLogger, configureErrorLogger, logger} = require("./middleware/logger");
 
+const express = require('express');
+const app = express();
+// Initial configurations for the project, TODO: Cors policy and Swagger
+configureRequestLogger(app);
+configureErrorLogger(app);
 
-const express = require('express')
-const app = express()
-const port = 3000
+module.exports = app;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
