@@ -12,7 +12,7 @@ const consoleTransport = new winston.transports.Console({
   name: 'console.log',
   format: winston.format.combine(winston.format.colorize(), logFormat),
   handleExceptions: true,
-  silent: process.env.SILENT_LOGS === 'true' // disable logs on test runner
+  silent: process.env.SILENT_LOGS === 'true'
 })
 const myWinstonOptions = {
   transports: [consoleTransport],
@@ -22,7 +22,7 @@ const logger = new winston.createLogger(myWinstonOptions)
 
 const configureRequestLogger = function (app) {
   function logRequest (req, res, next) {
-    if (!req.url.startsWith('/api/')) {
+    if (!req.url.startsWith('/comtravoAPI/')) {
       logger.info(`${req.method}> ${req.url}`)
     }
 

@@ -23,7 +23,7 @@ const filterFlights = async () => {
     const flights = [];
     const stringifiedFlights = [];
 
-    // TODO: Make this either a Hashmap with a filter of key
+    // TODO: Make this either a Hashmap with a filter of key.
     for (const flightArray in results){
       if (!flightArray) continue
       for (const flight in flightArray){
