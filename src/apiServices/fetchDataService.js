@@ -1,55 +1,60 @@
 const config = require('../config');
 const superagent = require('superagent');
-const logger = require('../middleware/logger');
+
 
 const fetchData = async (url, auth = false) => {
   try {
-    const request = superagent.get(url).set('user-agent', 'comtravo-user');
+    const request = superagent.get(url)
+      .set('user-agent', 'comtravo-comsumer')
 
-    // This part will be used for source2
-    if (auth) request.auth(config.username, config.password);
-
-    // Response in 1 second
-    const response = await Promise.race([
-      request,
-      new Promise((resolve) => setTimeout(() => resolve(null), 980)),
-    ]);
-
-    if (!response) {
-      logger.warn(`source ${url} has time out. The limit is ${980}`);
-      return null;
+    if (auth) {
+      request.auth(config.username, config.password)
     }
 
-    if (response.status !== 200) {
-      logger.info('Handle status must be done', response);
-      throw new Error('Status should be handled');
+    const res = await Promise.race([request, new Promise(resolve => setTimeout(() => resolve(null), 980))])
+
+    if (!res) {
+      console.warn(`${url} has timeouted (limit: 980ms). Minimum request time is 1 second`)
+      return null
     }
 
-    // Destructure the response
-    const { data } = response;
-    const { flightsInformation } = JSON.parse(data);
-    return flightsInformation;
-  } catch (e) {
-    if (e.status === 401) {
-      logger.error(`${url} returned Unauthorized response, (401)`);
-      return null;
-    } else if (e.status === 403) {
-      logger.error(`${url} returned Forbidden, (403) Hint: Might be CORS 
-      policy `);
-      return null;
-    } else if (e.status === 404) {
-      logger.error(`${url} returned Not found, (404)`);
-      return null;
-    } else if (e.status === 500) {
-      logger.error(`${url} Error from server, (500)`);
-      return null;
-    } else {
-      logger.error(`${url} returned Error on response, (401)`);
+    if (res.status !== 200) {
+      console.info('Error while processing flights', res)
+      throw new Error('Status should be handled')
     }
-    throw e;
+    const { text } = res
+    const { flights } = JSON.parse(text)
+
+    console.info(`The endpoint ${url} has returned a total of (${flights.length}) flights.`)
+
+    return flights
+  } catch (err) {
+    if (err.status === 401) {
+      console.error(`${url} returned auth fail (401).`)
+      return null
+    }
+
+    if (err.status === 403) {
+      console.error(`${url} returned rate limit error (403).`)
+      return null
+    }
+
+    if (err.status === 404) {
+      console.error(`${url} returned not found (404).`)
+      return null
+    }
+
+    if (err.status >= 500) {
+      console.error(`Server is not available. ${url} returned Server error (500).`)
+      return null
+    }
+
+    console.error(`${url} throwed error.`)
+    // throw other unhandled errors
+    throw err
   }
-};
+}
 
 module.exports = {
-  fetchData,
-};
+  fetchData
+}

@@ -1,47 +1,61 @@
-const { logger } = require('../middlewares/logger')
-const { fetchDataService } = require("./fetchDataService");
+const fetchDataService  = require("./fetchDataService");
 
 const getFlights = async () => {
   try {
-    const requestEndpoints = [
+    // Add more endpoints if needed
+    const requests = [
       fetchDataService.fetchData('https://discovery-stub.comtravo.com/source1'),
       fetchDataService.fetchData('https://discovery-stub.comtravo.com/source2', true)
-    ];
-    
-    const results = await Promise.all(requests);
-    return results;
-  }catch (e){
-    logger.error(`Cannot fetch getFlights, getFlights function produced the following error ${e.message}`);
-    throw e;
+    ]
+
+    const results = await Promise.all(requests)
+
+    return results
+  } catch (err) {
+    console.error(`Error in getFlights function: ${err.message}`)
+
+    // throw other unhandled errors
+    throw err
   }
 }
 
 const filterFlights = async () => {
-  // Function in charge of Merging, Removing duplicates and sending them back
   try {
-    const results = await getFlights();
-    const flights = [];
-    const stringifiedFlights = [];
+    // TODO maybe work this out in a set with the keys
 
-    // TODO: Make this either a Hashmap with a filter of key.
-    for (const flightArray in results){
-      if (!flightArray) continue
-      for (const flight in flightArray){
-        const strData = JSON.stringify(flight);
-        if (!stringifiedFlights.includes(strData)){
-          stringifiedFlights.push(strData);
-          flights.push(flight);
+    // Fetch all of the flights from all of the endpoints
+    const results = await getFlights()
+
+    const flightStringIDs = []
+    const flights = []
+    let erasedDuplicateCount = 0;
+
+    for (const result of results) {
+      if (!result) { continue }
+
+      for (const flight of result) {
+        const str = JSON.stringify(flight)
+        if (!flightStringIDs.includes(str)){
+          flightStringIDs.push(str)
+          flights.push(flight)
+        }else{
+          erasedDuplicateCount++
         }
       }
     }
-    return flights;
-  } catch (e){
-    logger.error(`Error filtering flights ${e.message}`);
-    throw e;
+
+    if (erasedDuplicateCount > 0) console.warn(`Removed a total of ${erasedDuplicateCount} duplicates`)
+
+    return flights
+  } catch (err) {
+    console.error(`Error trying to merge: ${err.message}`)
+    throw err
   }
 }
 
+
+
 module.exports = {
-  getFlights,
-  filterFlights
+  filterFlights,
+  getFlights
 }
