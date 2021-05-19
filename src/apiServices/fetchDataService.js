@@ -30,17 +30,17 @@ const fetchData = async (url, auth = false) => {
     return flights
   } catch (err) {
     if (err.status === 401) {
-      console.error(`${url} returned auth fail (401).`)
+      console.error(`${url} Authentication Failure (401).`)
       return null
     }
 
     if (err.status === 403) {
-      console.error(`${url} returned rate limit error (403).`)
+      console.error(`${url} Rate Limit Error (403).`)
       return null
     }
 
     if (err.status === 404) {
-      console.error(`${url} returned not found (404).`)
+      console.error(`${url} Resource Not Found (404).`)
       return null
     }
 
