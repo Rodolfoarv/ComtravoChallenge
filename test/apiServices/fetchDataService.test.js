@@ -17,7 +17,7 @@ describe('Testing Fetching Data Service', () => {
       const fetchDataService = require('../../src/apiServices/fetchDataService')
 
       const result = await fetchDataService.fetchData('URL')
-      expect(result.length).toBe(14)
+      expect(result.length).toBe(12)
     })
 
     it('Should return null when server returns 401', async () => {
