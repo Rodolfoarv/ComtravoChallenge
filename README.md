@@ -18,6 +18,14 @@ seconds.
 The response time of your service shouldn't take longer than 1 second.
 Please write tests for your implementation. Also would be great to avoid usage of Nest.js framework.
 
+# How did I decide to tackle the problem?
+
+The first thing was to analyze what is being asked so I may divide this into a list of subtasks and work them independly in a seperate PR to isolate them.
+
+After the feature decision the next one is to decide the Tech Stack, possible benefits and alternatives. In this case I decided to use Express, Swagger, Jest and other packages. Eventhough for the case of Swagger there are other alternatives like ReDoc I wanted to follow what Comtravo used as well :)
+
+So we got our features with the list of tasks, and our tech stack! So lets get hands on coding.
+
 # Tech stack
 
 - Express
