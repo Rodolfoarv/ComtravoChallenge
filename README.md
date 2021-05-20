@@ -6,7 +6,7 @@ In it I will describe the process of how I decided to solve the problem, the tec
 
 Feel free to use the project as you like and to switch to any PR to see the development of any particular feature, if there is any question feel free to hit me up.
 
-![Evenito](/public/demo.gif)
+![Evenito](demo.gif)
 
 ## Objective:
 
@@ -30,68 +30,56 @@ Please write tests for your implementation. Also would be great to avoid usage o
 # How to run the program?
 
 ```shell
+##Execute the following commands:
 
+git clone https://github.com/Rodolfoarv/ComtravoChallenge.git
+
+cd ComtravoCHallenge
 
 ```
 
-- Typescript: Used for better type checks and cleaner code read
-- Global state: In order to share the state of the application between the components
-- JEST for **testing** and ensuring the **quality** of the code
-- Cypress.io for E2E tests
+### Install the dependencies
 
-# Pull requests
+```shell
+npm install
+```
 
-Since this a personal project I needed extra help to develop it! In this case someone special was in charge of reviewing my PRs so I did not mess anything up :)
+### Execute the program
+
+```shell
+npm start
+```
+
+### Execute the tests
+
+```shell
+npm run tests
+```
+
+# Some notes
+
+I have pushed the .env variable so you may test it with the credentials :) however, this is not a good practice to follow.
+
+# Pull Request
+
+Every "small feature" was developed in a separated pull request with the commits associated to it. This is a common practice I follow, afterwards someone reviews my PR or do a Pair Programming exercise to ensure the quality and coding standards of the feature being developed.
+
+You may switch to a PR at anytime in which I divided it in 3 features for the project
+
+- Connection with Comtravo's API and initial setup of the application with Express
+- Creation of the Flight API (Using Swagger)
+- Adding a testing framework (Jest)
 
 ## Who reviewed my PR's ?
 
 My friend's dog was in charge with the mission of reviewing my PRs in exchange for food.
 
-![Doggo](/public/doggo.jpg)
+![Doggo](doggo.jpg)
 
-# How to execute in your local machine?
+# What can be improved?
 
-```
-git clone https://github.com/Rodolfoarv/DrawingCanvas.git
-cd DrawingCanvas
-yarn install
-yarn start
-```
+Many things and many subfeatures to add to the API, one of them is a logging system using Winston so we can record this in any case of failure :) Also adding Typescript would be useful for type checking a flight instance.
 
-Open http://localhost:3000 in your browser
+# Big Thank You
 
-# How to run Tests?
-
-React Testing Library was used for Unit Testing. Cypress.io was used for E2E tests.
-
-Execute the following command to run tests:
-
-```
-yarn test
-```
-
-# Sample I/O
-
-## Command: N 20 4
-
-![1](/public/1.png)
-
-## Command: L 1 2 6 2
-
-![Doggo](/public/2.png)
-
-## Command: L 6 3 6 4
-
-![Doggo](/public/3.png)
-
-## Command: R 16 1 20 3
-
-![Doggo](/public/4.png)
-
-## Command: C O
-
-## Command: B 10 3
-
-![Doggo](/public/5.png)
-
-# Thank you
+It was fun working with this project specially since I felt this is a common task that could happen when you have several partners and you need to integrate them into a single API :)

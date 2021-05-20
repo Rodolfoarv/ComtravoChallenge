@@ -21,7 +21,6 @@ const getFlights = async () => {
 
 const filterFlights = async () => {
   try {
-    // TODO maybe work this out in a set with the keys
 
     // Fetch all of the flights from all of the endpoints
     const results = await getFlights()
