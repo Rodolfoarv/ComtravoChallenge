@@ -20,11 +20,11 @@ Please write tests for your implementation. Also would be great to avoid usage o
 
 # How did I decide to tackle the problem?
 
-The first thing was to analyze what is being asked so I may divide this into a list of subtasks and work them independly in a seperate PR to isolate them.
+The first thing was to analyze what is being asked so I may divide this into a list of subtasks and work them independently in a seperate PR to isolate them.
 
-After the feature decision the next one is to decide the Tech Stack, possible benefits and alternatives. In this case I decided to use Express, Swagger, Jest and other packages. Eventhough for the case of Swagger there are other alternatives like ReDoc I wanted to follow what Comtravo used as well :)
+After these subtasks have been decided, the next one was to decide the Tech Stack to be used, possible benefits and alternatives to it, after all it all comes the right tool for the right job. In this case, I decided to use Express, Swagger, Jest and other packages for what it was requested. Eventhough for example, for the case of Swagger there were other alternatives like ReDoc I wanted to follow what Comtravo used as well. The same happened for Node.js where eventhough I love to use Django I wanted to use the technologies Comtravo uses.
 
-So we got our features with the list of tasks, and our tech stack! So lets get hands on coding.
+So we got our features with the list of tasks, and our tech stack! We are just missing a good Latte Macchiato with a Espresso and we can get our hands on coding!
 
 # Tech stack
 
